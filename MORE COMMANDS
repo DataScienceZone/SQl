@@ -1,0 +1,329 @@
+## WHERE Clause :mag:
+The `WHERE` clause is used to filter records based on a specified condition.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+Example:
+```sql
+SELECT * FROM customers
+WHERE age > 18;
+```
+
+## LIKE Operator :mag_right:
+The `LIKE` operator is used to search for a specified pattern in a column.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column LIKE pattern;
+```
+
+Example:
+```sql
+SELECT * FROM customers
+WHERE name LIKE '%John%';
+```
+
+## ORDER BY Clause :arrow_up_down:
+The `ORDER BY` clause is used to sort the result set in ascending or descending order.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column ASC|DESC;
+```
+
+Example:
+```sql
+SELECT * FROM customers
+ORDER BY name ASC;
+```
+
+## GROUP BY Clause :bar_chart:
+The `GROUP BY` clause is used to group records with the same value in a specific column.
+
+Syntax:
+```sql
+SELECT column1, COUNT(column2)
+FROM table_name
+GROUP BY column1;
+```
+
+Example:
+```sql
+SELECT country, COUNT(*)
+FROM customers
+GROUP BY country;
+```
+
+## JOIN Clause :handshake:
+The `JOIN` clause is used to combine records from two or more tables.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table1
+JOIN table2 ON table1.column = table2.column;
+```
+
+Example:
+```sql
+SELECT customers.name, orders.order_date
+FROM customers
+JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+## DISTINCT Keyword :mag_right:
+The `DISTINCT` keyword is used to return only distinct (different) values.
+
+Syntax:
+```sql
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT DISTINCT country
+FROM customers;
+```
+
+## UNION Operator :link:
+The `UNION` operator is used to combine the result set of two or more `SELECT` statements.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table1
+UNION
+SELECT column1, column2, ...
+FROM table2;
+```
+
+Example:
+```sql
+SELECT name, email
+FROM customers
+UNION
+SELECT name, email
+FROM subscribers;
+```
+
+## BETWEEN Operator :mag_right:
+The `BETWEEN` operator is used to filter records based on a range of values.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column BETWEEN value1 AND value2;
+```
+
+Example:
+```sql
+SELECT * FROM orders
+WHERE order_date BETWEEN '2021-01-01' AND '2021-12-31';
+```
+
+## COUNT Function :1234:
+The `COUNT` function is used to count the number of records in a table.
+
+Syntax:
+```sql
+SELECT COUNT(*)
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT COUNT(*)
+FROM customers;
+```
+
+## MAX Function :arrow_up:
+The `MAX` function is used to find the highest value in a column.
+
+Syntax:
+```sql
+SELECT MAX(column)
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT MAX(price)
+FROM products;
+```
+
+## MIN Function :arrow_down:
+The `MIN` function is used to find the lowest value in a column.
+
+Syntax:
+```sql
+SELECT MIN(column)
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT MIN(price)
+FROM products;
+```
+
+## AVG Function :bar_chart:
+The `AVG` function is used to find the average value in a column.
+
+Syntax:
+```sql
+SELECT AVG(column)
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT AVG(price)
+FROM products;
+```
+
+## SUM Function :heavy_plus_sign:
+The `SUM` function is used to find the sum of values in a column.
+
+Syntax:
+```sql
+SELECT SUM(column)
+FROM table_name;
+```
+
+Example:
+```sql
+SELECT SUM(price)
+FROM orders;
+```
+
+## Subquery :mag_right:
+A subquery is a query nested inside another query.
+
+Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column IN (SELECT column FROM table_name WHERE condition);
+```
+
+Example:
+```sql
+SELECT * FROM orders
+WHERE customer_id IN (SELECT customer_id FROM customers WHERE country = 'USA');
+```
+
+## Stored Procedures :file_folder:
+A stored procedure is a set of SQL statements that perform a specific task.
+
+Syntax:
+```sql
+CREATE PROCEDURE procedure_name
+AS
+BEGIN
+    SQL statements
+END;
+```
+
+Example:
+```sql
+CREATE PROCEDURE get_customers
+AS
+BEGIN
+    SELECT * FROM customers;
+END;
+```
+
+## Triggers :hammer:
+A trigger is a set of SQL statements that automatically execute in response to certain events.
+
+Syntax:
+```sql
+CREATE TRIGGER trigger_name
+ON table_name
+FOR INSERT, UPDATE, DELETE
+AS
+BEGIN
+    SQL statements
+END;
+```
+
+Example:
+```sql
+CREATE TRIGGER insert_order
+ON orders
+FOR INSERT
+AS
+BEGIN
+    INSERT INTO order_log (order_id, order_date)
+    VALUES (SELECT order_id, order_date FROM inserted);
+END;
+```
+
+## Views :eyes:
+A view is a virtual table based on the result set of a SELECT statement.
+
+Syntax:
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+Example:
+```sql
+CREATE VIEW top_customers AS
+SELECT name, SUM(order_total) AS total_spent
+FROM customers
+JOIN orders ON customers.customer_id = orders.customer_id
+GROUP BY customers.customer_id
+ORDER BY total_spent DESC
+LIMIT 10;
+```
+
+## Transactions :credit_card:
+A transaction is a set of SQL statements that are executed as a single unit.
+
+Syntax:
+```sql
+BEGIN TRANSACTION;
+SQL statements
+COMMIT TRANSACTION;
+```
+
+Example:
+```sql
+BEGIN TRANSACTION;
+INSERT INTO customers (name, email) 
+VALUES ('John Doe', 'john@example.com');
+UPDATE orders
+SET order_total = 100
+WHERE customer_id = 1;
+COMMIT TRANSACTION;
+```
+
+## Temporary Tables :hourglass:
+A temporary table is a table that is only available during the current session.
+
+Syntax:
+```sql
+CREATE TEMPORARY TABLE table_name
+(column1 data_type, column2 data_type, ...);
+```
+
+Example:
+```sql
+CREATE TEMPORARY TABLE temp_orders
+(order_id INT, order_date DATE, order_total DECIMAL(10,2));
+```
